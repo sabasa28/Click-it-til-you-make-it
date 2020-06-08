@@ -1,33 +1,39 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameplayManager : MonoBehaviour
 {
-    public float petsPerClick = 1;
-    float maxPetsReached = 0;
-    float currentPets = 0;
+    public float patsPerClick = 1;
+    public Button buttonPref;
+    public Transform buttonsPanel;
+    float maxPatsReached = 0;
+    float currentPats = 0;
+    Action<int> UpdatePatsText;
+    UIGameplay UIManager;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        UIManager = FindObjectOfType<UIGameplay>();
+        UIManager.AddToCurrentPats = OnClickAddPats;
+        UpdatePatsText = UIManager.UpdatePetsText;
+        Instantiate(buttonPref, buttonsPanel);
+        Instantiate(buttonPref, buttonsPanel);
     }
 
-    // Update is called once per frame
-    void Update()
+    void UpdateMaxPats(int currentPatAmmount)
     {
-        
+        if (currentPatAmmount>maxPatsReached) maxPatsReached = currentPatAmmount;
     }
 
-    void UpdateMaxPets(int currentPetAmmount)
+    public void OnClickAddPats()
     {
-        if (currentPetAmmount>maxPetsReached) maxPetsReached = currentPetAmmount;
+        currentPats += patsPerClick;
+        UpdatePatsText((int)currentPats);
     }
 
-    void OnClickAddPets()
-    {
-        currentPets += petsPerClick;
-    }
 
 }
