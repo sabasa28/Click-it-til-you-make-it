@@ -9,20 +9,17 @@ public class UIGameplay : MonoBehaviour
 {
     public TextMeshProUGUI patsText;
     public Action AddToCurrentPats;
-    GameObject myEventSystem;
+    GameObject eventSystem;
 
     public void UpdatePetsText(int currentPats)
     {
-        myEventSystem = GameObject.Find("EventSystem");
+        eventSystem = GameObject.Find("EventSystem");
         patsText.text = "Pats = " + currentPats;
     }
 
     public void OnClickCat()
     {
         AddToCurrentPats();
-        myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+        eventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
-
-
-
 }
